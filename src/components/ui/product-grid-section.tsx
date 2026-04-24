@@ -2,7 +2,15 @@ import Image from "next/image";
 
 import { archivo, inter } from "@/src/lib/fonts";
 
-const products = [
+type Product = {
+  name: string;
+  price: string;
+  status: "available" | "coming-soon";
+  tag?: string;
+  imageSrc?: string;
+};
+
+const products: readonly Product[] = [
   {
     name: "Regen Compression Boots",
     price: "EUR 378,00",
@@ -71,7 +79,7 @@ function ProductArtwork({
   imageSrc,
 }: {
   name: string;
-  status: (typeof products)[number]["status"];
+  status: Product["status"];
   tag?: string;
   imageSrc?: string;
 }) {
