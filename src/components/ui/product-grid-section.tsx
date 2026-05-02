@@ -327,7 +327,7 @@ export function ProductGridSection() {
                     </p>
                     <button
                       type="button"
-                      className={`${inter.className} mt-8 inline-flex min-h-11 w-fit items-center justify-center rounded-full border border-zinc-400 px-6 text-sm font-semibold text-zinc-900 transition-colors hover:border-[#0F806C] hover:text-[#0F806C]`}
+                      className={`${inter.className} mt-8 inline-flex min-h-11 w-[132px] shrink-0 self-start items-center justify-center whitespace-nowrap rounded-full border border-zinc-400 px-4 text-sm font-semibold text-zinc-900 transition-colors hover:border-[#0F806C] hover:text-[#0F806C]`}
                     >
                       Buy now
                     </button>
