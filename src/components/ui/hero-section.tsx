@@ -90,7 +90,7 @@ export function HeroSection() {
               </Link>
             </div>
 
-            <div className="px-4 pt-6 sm:px-8 lg:px-12">
+            <div className="pl-4 pr-5 pt-6 sm:px-8 lg:px-12">
               <div className="flex flex-nowrap items-center gap-1.5 sm:gap-3">
                 <a
                   href="https://www.instagram.com/"
