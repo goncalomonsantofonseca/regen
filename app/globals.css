@@ -60,6 +60,32 @@ html {
   }
 }
 
+@keyframes compression-arrow-up {
+  0% {
+    opacity: 0;
+    transform: translate3d(-50%, 18px, 0) rotate(45deg);
+  }
+
+  15% {
+    opacity: 0.95;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(-50%, -38px, 0) rotate(45deg);
+  }
+}
+
+@keyframes roller-glide {
+  0%,
+  100% {
+    transform: translateX(0%);
+  }
+  50% {
+    transform: translateX(118%);
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -99,4 +125,8 @@ button {
 .partners-marquee {
   animation: partners-marquee 32s linear infinite;
   will-change: transform;
+}
+
+.compression-arrow {
+  animation: compression-arrow-up 1.2s ease-out infinite;
 }

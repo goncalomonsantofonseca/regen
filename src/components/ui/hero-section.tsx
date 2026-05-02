@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Script from "next/script";
 import { useEffect, useRef, useState } from "react";
 
@@ -75,20 +76,92 @@ export function HeroSection() {
         <div className="relative mx-auto flex w-full max-w-[1800px] flex-col px-0 pb-4 pt-0 sm:pb-6">
           <header className="flex items-center justify-between">
             <div className="px-6 pt-6 sm:px-8 lg:px-12">
-              <span
-                className={`${archivo.className} text-2xl font-black italic tracking-[0.3em] text-white sm:text-3xl`}
+              <Link
+                href="/"
+                className={`${archivo.className} text-2xl font-black italic tracking-[0.3em] text-white transition-opacity hover:opacity-90 sm:text-3xl`}
+                onClick={(event) => {
+                  if (window.location.pathname === "/") {
+                    event.preventDefault();
+                    window.location.href = "/";
+                  }
+                }}
               >
                 REGEN
-              </span>
+              </Link>
             </div>
 
             <div className="px-6 pt-6 sm:px-8 lg:px-12">
-              <a
-                href="#products"
-                className={`${inter.className} inline-flex min-h-11 items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition-transform duration-300 hover:scale-[1.02]`}
-              >
-                Our Products
-              </a>
+              <div className="flex items-center gap-2 sm:gap-3">
+                <a
+                  href="https://www.instagram.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Instagram"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-white/85 transition-colors hover:border-white/50 hover:text-white"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    aria-hidden="true"
+                  >
+                    <rect x="3.5" y="3.5" width="17" height="17" rx="4.5" />
+                    <circle cx="12" cy="12" r="4" />
+                    <circle
+                      cx="17.2"
+                      cy="6.8"
+                      r="0.9"
+                      fill="currentColor"
+                      stroke="none"
+                    />
+                  </svg>
+                </a>
+
+                <a
+                  href="https://www.tiktok.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="TikTok"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-white/85 transition-colors hover:border-white/50 hover:text-white"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-4 w-4"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M14.7 3c.2 1.7 1.2 3.2 2.8 4.1 1 .6 2 .9 3.2.9v3.1a9 9 0 0 1-3.3-.6v5.6a6 6 0 1 1-6-6c.3 0 .5 0 .8.1v3.1a2.8 2.8 0 1 0 2.5 2.8V3h3Z" />
+                  </svg>
+                </a>
+
+                <a
+                  href="#products"
+                  className={`${inter.className} inline-flex min-h-11 items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition-transform duration-300 hover:scale-[1.02]`}
+                >
+                  Our Products
+                </a>
+
+                <a
+                  href="#products"
+                  aria-label="Shopping cart"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-white/85 transition-colors hover:border-white/50 hover:text-white"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    aria-hidden="true"
+                  >
+                    <circle cx="9" cy="20" r="1.6" />
+                    <circle cx="18" cy="20" r="1.6" />
+                    <path d="M2.8 4.5h2.1l2.2 10.1h11l2-7.1H6.2" />
+                  </svg>
+                </a>
+              </div>
             </div>
           </header>
 

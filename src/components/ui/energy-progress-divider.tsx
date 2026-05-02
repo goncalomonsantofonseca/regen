@@ -5,9 +5,11 @@ import { useEffect, useState } from "react";
 import { inter } from "@/src/lib/fonts";
 
 function getHourProgress(now: Date) {
+  const cycleDurationSeconds = 8 * 60;
   const secondsIntoHour =
     now.getMinutes() * 60 + now.getSeconds() + now.getMilliseconds() / 1000;
-  const progress = secondsIntoHour / 3600;
+  const secondsIntoCycle = secondsIntoHour % cycleDurationSeconds;
+  const progress = secondsIntoCycle / cycleDurationSeconds;
 
   return {
     progress,

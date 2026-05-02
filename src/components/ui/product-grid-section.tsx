@@ -1,5 +1,11 @@
-import Image from "next/image";
+"use client";
 
+import Image from "next/image";
+import { useState } from "react";
+
+import { CompressionScroll } from "@/src/components/ui/compression-scroll";
+import { RollerFlow } from "@/src/components/ui/roller-flow";
+import { SocksFlow } from "@/src/components/ui/socks-flow";
 import { archivo, inter } from "@/src/lib/fonts";
 
 type Product = {
@@ -16,17 +22,19 @@ const products: readonly Product[] = [
     price: "EUR 378,00",
     tag: "First edition",
     status: "available",
-    imageSrc: "/imagem_12.jpg",
+    imageSrc: "/Boots_Example.png",
   },
   {
     name: "Socks",
     price: "EUR 21,00",
     status: "coming-soon",
+    imageSrc: "/SocksExample.png",
   },
   {
     name: "Core Roller",
     price: "EUR 24,00",
     status: "coming-soon",
+    imageSrc: "/RollerExample.png",
   },
 ] as const;
 
@@ -77,39 +85,59 @@ function ProductArtwork({
   status,
   tag,
   imageSrc,
+  alignLeft = false,
+  transparentBackground = false,
+  removeRadius = false,
 }: {
   name: string;
   status: Product["status"];
   tag?: string;
   imageSrc?: string;
+  alignLeft?: boolean;
+  transparentBackground?: boolean;
+  removeRadius?: boolean;
 }) {
   if (status === "coming-soon") {
     return (
-      <div className="relative flex h-full min-h-[320px] items-end justify-start overflow-hidden rounded-[24px] bg-[radial-gradient(circle_at_top,#f7f7f7,white_60%)] px-5 pb-6 pt-8 sm:min-h-[380px]">
-        <EnergyParticles />
-        <div className="relative z-10">
-          <span
-            className={`${inter.className} mb-3 inline-flex rounded-full border border-zinc-200 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.24em] text-zinc-500`}
-          >
-            Coming soon
-          </span>
-          <div className="space-y-1 text-[2.4rem] font-black uppercase italic leading-[0.88] tracking-[-0.05em] text-zinc-200 sm:text-[3rem]">
-            <p className={archivo.className}>Coming</p>
-            <p className={archivo.className}>Soon</p>
-          </div>
-          <p
-            className={`${inter.className} mt-3 max-w-[14rem] text-sm leading-6 text-zinc-400`}
-          >
-            {name} is loading into the next REGEN drop.
-          </p>
+      <div
+        className={`relative flex h-full min-h-[320px] items-end justify-start overflow-hidden ${removeRadius ? "rounded-none" : "rounded-[24px]"} sm:min-h-[380px] ${
+          transparentBackground
+            ? "bg-transparent"
+            : "bg-[radial-gradient(circle_at_top,#f7f7f7,white_60%)]"
+        }`}
+      >
+        {!transparentBackground ? <EnergyParticles /> : null}
+        <span
+          className={`${inter.className} absolute left-5 top-5 z-20 inline-flex rounded-full border border-zinc-200 bg-white/90 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.24em] text-zinc-700`}
+        >
+          Coming soon
+        </span>
+        <div className="relative z-10 h-full min-h-[320px] w-full sm:min-h-[380px]">
+          <Image
+            src={imageSrc ?? "/imagem_12.jpg"}
+            alt={name}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+            className={`object-contain pt-8 sm:pt-10 ${
+              alignLeft
+                ? "object-center px-4 sm:px-6"
+                : "object-bottom px-2 sm:px-3"
+            }`}
+          />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="relative flex h-full min-h-[320px] items-end overflow-hidden rounded-[24px] bg-[radial-gradient(circle_at_top,#f7f7f7,white_56%)] sm:min-h-[380px]">
-      <EnergyParticles />
+    <div
+      className={`relative flex h-full min-h-[320px] items-end overflow-hidden ${removeRadius ? "rounded-none" : "rounded-[24px]"} sm:min-h-[380px] ${
+        transparentBackground
+          ? "bg-transparent"
+          : "bg-[radial-gradient(circle_at_top,#f7f7f7,white_56%)]"
+      }`}
+    >
+      {!transparentBackground ? <EnergyParticles /> : null}
       {tag ? (
         <span
           className={`${inter.className} absolute left-5 top-5 z-20 inline-flex rounded-full border border-zinc-200 bg-white/90 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.24em] text-zinc-700`}
@@ -124,7 +152,11 @@ function ProductArtwork({
           alt={name}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-          className="object-contain object-bottom px-2 pt-8 sm:px-3 sm:pt-10"
+          className={`object-contain pt-8 sm:pt-10 ${
+            alignLeft
+              ? "object-center px-4 sm:px-6"
+              : "object-bottom px-2 sm:px-3"
+          }`}
         />
       </div>
     </div>
@@ -132,6 +164,17 @@ function ProductArtwork({
 }
 
 export function ProductGridSection() {
+  const [expandedProduct, setExpandedProduct] = useState<string | null>(null);
+  const switchProduct = (name: string) => {
+    setExpandedProduct(name);
+  };
+  const focusMode = expandedProduct !== null;
+  const activeProduct =
+    products.find((product) => product.name === expandedProduct) ?? products[0];
+  const otherProducts = products.filter(
+    (product) => product.name !== activeProduct.name,
+  );
+
   return (
     <section
       id="products"
@@ -171,9 +214,9 @@ export function ProductGridSection() {
                   status={product.status}
                   tag={product.tag}
                   imageSrc={product.imageSrc}
+                  alignLeft={false}
                 />
               </div>
-
               <div className="px-2 pb-2 pt-4">
                 <div className="mb-4 flex items-start justify-between gap-4">
                   <div>
@@ -189,18 +232,116 @@ export function ProductGridSection() {
                     </p>
                   </div>
                 </div>
-
+                <div className="flex items-center justify-between gap-3">
                 <button
                   type="button"
+                  onPointerDown={() => switchProduct(product.name)}
+                  onClick={() => switchProduct(product.name)}
                   className={`${inter.className} inline-flex min-h-11 items-center justify-center rounded-full border border-zinc-300 bg-white px-5 text-sm font-semibold text-black transition-colors duration-300 hover:border-zinc-900`}
                 >
                   View more
-                </button>
+                  </button>
+                  <button
+                    type="button"
+                    className={`${inter.className} inline-flex min-h-11 items-center justify-center rounded-full border border-[#0F806C] bg-[#0F806C] px-5 text-sm font-semibold text-white transition-colors duration-300 hover:bg-[#0b6a59] hover:border-[#0b6a59]`}
+                  >
+                    Buy Now
+                  </button>
+                </div>
               </div>
             </article>
           ))}
         </div>
       </div>
+
+      {focusMode ? (
+        <div className="fixed inset-0 z-[120] bg-black/50 backdrop-blur-[2px] transition-opacity duration-300">
+          <div className="h-full w-full p-3 sm:p-5 lg:p-8">
+            <div className="relative h-full w-full overflow-y-auto rounded-[28px] border border-zinc-200 bg-white shadow-[0_24px_80px_rgba(0,0,0,0.25)]">
+              <button
+                type="button"
+                aria-label="Close expanded product"
+                onClick={() => setExpandedProduct(null)}
+                className="absolute right-4 top-4 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full border border-zinc-300 bg-white/95 text-zinc-900 transition-colors hover:border-[#0F806C] hover:text-[#0F806C]"
+              >
+                <span className="text-xl leading-none">×</span>
+              </button>
+
+              <div className="relative min-h-[34vh] w-full overflow-hidden bg-[radial-gradient(circle_at_top,#dff5f0_0%,#d1ece5_55%,#c5e3db_100%)]">
+                <EnergyParticles />
+                <div className="relative min-h-[34vh] w-full lg:w-[56%]">
+                  <ProductArtwork
+                    name={activeProduct.name}
+                    status={activeProduct.status}
+                    tag={activeProduct.tag}
+                    imageSrc={activeProduct.imageSrc}
+                    alignLeft
+                    transparentBackground
+                    removeRadius
+                  />
+                </div>
+
+                <aside className="relative z-20 flex w-full flex-col gap-4 p-5 sm:p-7 lg:absolute lg:right-0 lg:top-0 lg:h-full lg:w-[44%] lg:p-8">
+                  <div className="grid grid-cols-2 gap-2">
+                    {otherProducts.map((product) => (
+                      <button
+                        key={product.name}
+                        type="button"
+                        onPointerDown={() => switchProduct(product.name)}
+                        onClick={() => switchProduct(product.name)}
+                        className="rounded-[12px] border border-zinc-300/90 bg-transparent p-3 text-left transition-colors hover:border-[#0F806C]"
+                      >
+                        <p
+                          className={`${archivo.className} text-[0.72rem] font-black italic uppercase leading-tight text-zinc-900 sm:text-xs`}
+                        >
+                          {product.name}
+                        </p>
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="mt-1 flex flex-1 flex-col justify-center">
+                    <p
+                      className={`${inter.className} text-xs font-semibold uppercase tracking-[0.28em] text-[#0F806C]`}
+                    >
+                      Product details
+                    </p>
+                    <h4
+                      className={`${archivo.className} mt-3 text-4xl font-black italic uppercase leading-[0.92] tracking-[-0.03em] text-zinc-950 sm:text-5xl`}
+                    >
+                      {activeProduct.name}
+                    </h4>
+                    <p
+                      className={`${inter.className} mt-4 text-xl font-semibold text-zinc-900`}
+                    >
+                      {activeProduct.price}
+                    </p>
+                    <p
+                      className={`${inter.className} mt-6 max-w-xl text-base leading-7 text-zinc-700`}
+                    >
+                      {activeProduct.name === "Regen Compression Boots"
+                        ? "Designed for pneumatic sequential recovery with controlled pressure from foot to thigh."
+                        : activeProduct.name === "Socks"
+                          ? "Recovery-ready socks with compression support for consistent circulation in training and cooldown."
+                          : "Core roller built to reduce muscle tension, improve mobility, and accelerate post-session reset."}
+                    </p>
+                    <button
+                      type="button"
+                      className={`${inter.className} mt-8 inline-flex min-h-11 w-fit items-center justify-center rounded-full border border-zinc-400 px-6 text-sm font-semibold text-zinc-900 transition-colors hover:border-[#0F806C] hover:text-[#0F806C]`}
+                    >
+                      Buy now
+                    </button>
+                  </div>
+                </aside>
+              </div>
+
+              {activeProduct.name === "Regen Compression Boots" ? <CompressionScroll /> : null}
+              {activeProduct.name === "Socks" ? <SocksFlow /> : null}
+              {activeProduct.name === "Core Roller" ? <RollerFlow /> : null}
+            </div>
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 }
