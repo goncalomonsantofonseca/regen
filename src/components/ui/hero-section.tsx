@@ -74,7 +74,7 @@ export function HeroSection() {
     <>
       <section className="relative overflow-hidden bg-black text-white">
         <div className="relative mx-auto flex w-full max-w-[1800px] flex-col px-0 pb-4 pt-0 sm:pb-6">
-          <header className="flex items-center justify-between">
+          <header className="flex items-start justify-between">
             <div className="px-6 pt-6 sm:px-8 lg:px-12">
               <Link
                 href="/"
@@ -90,18 +90,18 @@ export function HeroSection() {
               </Link>
             </div>
 
-            <div className="px-6 pt-6 sm:px-8 lg:px-12">
-              <div className="flex items-center gap-2 sm:gap-3">
+            <div className="px-4 pt-6 sm:px-8 lg:px-12">
+              <div className="flex flex-nowrap items-center gap-1.5 sm:gap-3">
                 <a
                   href="https://www.instagram.com/"
                   target="_blank"
                   rel="noreferrer"
                   aria-label="Instagram"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-white/85 transition-colors hover:border-white/50 hover:text-white"
+                  className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/25 text-white/85 transition-colors hover:border-white/50 hover:text-white sm:h-10 sm:w-10"
                 >
                   <svg
                     viewBox="0 0 24 24"
-                    className="h-4 w-4"
+                    className="h-3.5 w-3.5 sm:h-4 sm:w-4"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="1.8"
@@ -124,11 +124,11 @@ export function HeroSection() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label="TikTok"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-white/85 transition-colors hover:border-white/50 hover:text-white"
+                  className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/25 text-white/85 transition-colors hover:border-white/50 hover:text-white sm:h-10 sm:w-10"
                 >
                   <svg
                     viewBox="0 0 24 24"
-                    className="h-4 w-4"
+                    className="h-3.5 w-3.5 sm:h-4 sm:w-4"
                     fill="currentColor"
                     aria-hidden="true"
                   >
@@ -138,7 +138,7 @@ export function HeroSection() {
 
                 <a
                   href="#products"
-                  className={`${inter.className} inline-flex min-h-11 items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition-transform duration-300 hover:scale-[1.02]`}
+                  className={`${inter.className} inline-flex min-h-8 shrink-0 items-center justify-center whitespace-nowrap rounded-full bg-white px-3 py-1.5 text-[11px] font-semibold text-black transition-transform duration-300 hover:scale-[1.02] sm:min-h-11 sm:px-6 sm:py-3 sm:text-sm`}
                 >
                   Our Products
                 </a>
@@ -146,11 +146,11 @@ export function HeroSection() {
                 <a
                   href="#products"
                   aria-label="Shopping cart"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-white/85 transition-colors hover:border-white/50 hover:text-white"
+                  className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/25 text-white/85 transition-colors hover:border-white/50 hover:text-white sm:h-10 sm:w-10"
                 >
                   <svg
                     viewBox="0 0 24 24"
-                    className="h-4 w-4"
+                    className="h-3.5 w-3.5 sm:h-4 sm:w-4"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="1.8"

@@ -206,6 +206,15 @@ export function ProductGridSection() {
           {products.map((product) => (
             <article
               key={product.name}
+              role="button"
+              tabIndex={0}
+              onClick={() => switchProduct(product.name)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  switchProduct(product.name);
+                }
+              }}
               className="group [--energy-speed:1.45] [--particle-scale-multiplier:1] [--particle-opacity-multiplier:1] hover:[--energy-speed:0.72] hover:[--particle-scale-multiplier:1.28] hover:[--particle-opacity-multiplier:1.45] rounded-[30px] border border-zinc-200 bg-white p-3 shadow-[0_8px_24px_rgba(0,0,0,0.03)] transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_22px_48px_rgba(15,128,108,0.08)] sm:p-4"
             >
               <div className="relative">
@@ -233,16 +242,18 @@ export function ProductGridSection() {
                   </div>
                 </div>
                 <div className="flex items-center justify-between gap-3">
-                <button
-                  type="button"
-                  onPointerDown={() => switchProduct(product.name)}
-                  onClick={() => switchProduct(product.name)}
-                  className={`${inter.className} inline-flex min-h-11 items-center justify-center rounded-full border border-zinc-300 bg-white px-5 text-sm font-semibold text-black transition-colors duration-300 hover:border-zinc-900`}
-                >
-                  View more
+                  <button
+                    type="button"
+                    onClick={(event) => event.stopPropagation()}
+                    onPointerDown={() => switchProduct(product.name)}
+                    onClickCapture={() => switchProduct(product.name)}
+                    className={`${inter.className} inline-flex min-h-11 items-center justify-center rounded-full border border-zinc-300 bg-white px-5 text-sm font-semibold text-black transition-colors duration-300 hover:border-zinc-900`}
+                  >
+                    View more
                   </button>
                   <button
                     type="button"
+                    onClick={(event) => event.stopPropagation()}
                     className={`${inter.className} inline-flex min-h-11 items-center justify-center rounded-full border border-[#0F806C] bg-[#0F806C] px-5 text-sm font-semibold text-white transition-colors duration-300 hover:bg-[#0b6a59] hover:border-[#0b6a59]`}
                   >
                     Buy Now
